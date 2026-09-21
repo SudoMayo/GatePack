@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+gatepack/node_modules
+
+# Production
+dist
+gatepack/dist
+
+# Logs
+*.log
+
+# OS & Editor files
+.DS_Store
+.vscode
+.idea
