@@ -1,7 +1,6 @@
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider } from './state/context';
 import { PhoneFrame } from './components/PhoneFrame';
-import { FacilitatorPanel } from './components/FacilitatorPanel';
 import { ParcelGuard } from './components/ParcelGuard';
 import { Toast } from './components/Toast';
 import { Dashboard } from './screens/Dashboard';
@@ -15,7 +14,7 @@ function AppShell() {
   useKiosk();
 
   return (
-    <PhoneFrame panel={<FacilitatorPanel />}>
+    <PhoneFrame>
       <Toast />
       <Routes>
         <Route path="/" element={<Dashboard />} />

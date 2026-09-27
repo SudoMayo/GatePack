@@ -1,13 +1,13 @@
 :root {
-  /* Colour: 6 values. That's the whole palette. */
-  --white:   #FFFFFF;  /* screen background */
-  --ink:     #111827;  /* text, primary buttons, 2px borders, alert banners */
-  --ink-2:   #374151;  /* pressed state for ink surfaces */
-  --muted:   #4B5563;  /* secondary text (>= 6.6:1 on surface, safe in glare) */
-  --outline: #6B7280;  /* 1px control borders (>= 3:1) */
-  --surface: #F3F4F6;  /* info blocks, unselected tabs, rows */
-  --line:    #E5E7EB;  /* decorative dividers only */
-  --page:    #E5E7EB;  /* desktop backdrop behind the phone frame */
+  /* Colour: warm neutral palette */
+  --white:   #FAF9F7;  /* screen background — warm off-white */
+  --ink:     #1A1A1A;  /* text, primary buttons, 2px borders, alert banners */
+  --ink-2:   #2E2E2E;  /* pressed state for ink surfaces */
+  --muted:   #5C5A56;  /* secondary text (>= 6.6:1 on white, safe in glare) */
+  --outline: #8A8783;  /* 1px control borders (>= 3:1) */
+  --surface: #F0EEEB;  /* info blocks, unselected tabs, rows — warm stone */
+  --line:    #E3E0DB;  /* decorative dividers only */
+  --page:    #E8E5E0;  /* desktop backdrop behind the phone frame — warm taupe */
 
   /* Type */
   --font-sans: "IBM Plex Sans", system-ui, sans-serif;

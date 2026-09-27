@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, TriangleAlert, Clock } from 'lucide-react';
-import { useAppState, useAppDispatch, useReset } from '../state/hooks';
+import { useAppState, useAppDispatch } from '../state/hooks';
 import { selectParcelsByKind, selectActiveCount, selectHistoryCount } from '../state/reducer';
 import { HorizontalStepper } from '../components/HorizontalStepper';
 import { STUDENT_ID } from '../data';
@@ -12,7 +12,6 @@ export function Dashboard() {
   const navigate = useNavigate();
   const state = useAppState();
   const dispatch = useAppDispatch();
-  const reset = useReset();
 
   const readyParcels = selectParcelsByKind(state, 'ready');
   const pendingParcels = selectParcelsByKind(state, 'pending');
@@ -180,10 +179,7 @@ export function Dashboard() {
 
         {/* Footer */}
         <footer className="dashboard-footer">
-          <div className="dashboard-footer__version">GatePack prototype v1.0</div>
-          <button className="text-link" type="button" onClick={reset}>
-            Reset demo
-          </button>
+          <div className="dashboard-footer__version">GatePack</div>
         </footer>
       </main>
     </div>
