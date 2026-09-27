@@ -1,13 +1,16 @@
 :root {
-  /* Colour: warm neutral palette */
-  --white:   #FAF9F7;  /* screen background — warm off-white */
-  --ink:     #1A1A1A;  /* text, primary buttons, 2px borders, alert banners */
-  --ink-2:   #2E2E2E;  /* pressed state for ink surfaces */
-  --muted:   #5C5A56;  /* secondary text (>= 6.6:1 on white, safe in glare) */
-  --outline: #8A8783;  /* 1px control borders (>= 3:1) */
-  --surface: #F0EEEB;  /* info blocks, unselected tabs, rows — warm stone */
-  --line:    #E3E0DB;  /* decorative dividers only */
-  --page:    #E8E5E0;  /* desktop backdrop behind the phone frame — warm taupe */
+  /* Colour: Simple neutral tone palette — distinct from white for Behance showcase & high contrast */
+  --bg-app:     #E7E3DA;  /* GatePack app background — visible warm neutral stone/concrete */
+  --card-bg:    #F7F5F0;  /* Card & interactive surface background — clean warm off-white */
+  --surface:    #D8D2C5;  /* Secondary surface: unselected tabs, info blocks, recessed rows */
+  --surface-2:  #CCC5B6;  /* Pressed state for surfaces */
+  --white:      #FFFFFF;  /* Crisp contrast for text & icons on dark surfaces */
+  --ink:        #181716;  /* Text, primary buttons, 2px borders, alert banners */
+  --ink-2:      #2C2A28;  /* Pressed state for ink surfaces */
+  --muted:      #59554E;  /* Secondary text (>= 5.5:1 on app bg, >= 6.5:1 on cards) */
+  --outline:    #8C867B;  /* 1px control borders (>= 3:1) */
+  --line:       #CFC9BC;  /* Decorative dividers only */
+  --page:       #CDC6B8;  /* Desktop backdrop behind the phone frame */
 
   /* Type */
   --font-sans: "IBM Plex Sans", system-ui, sans-serif;
