@@ -18,7 +18,7 @@ Experience the live interactive prototype on your phone, tablet, or desktop:
 👉 **[https://sudomayo.github.io/GatePack/](https://sudomayo.github.io/GatePack/)**
 
 - **Mobile Viewports (≤500px)**: Fills `100dvh` natively without phone borders or fake status bars. Optimized for outdoor glare and touchscreen touch targets (≥44px).
-- **Desktop Viewports (>500px)**: Displays an iPhone 15/16-proportioned frame (393×852 px) with a realistic status bar and an interactive Facilitator Control Panel (≥900px).
+- **Desktop Viewports (>500px)**: Displays an iPhone 15/16-proportioned frame (393×852 px) with a realistic status bar and subtle presentation elevation, set against a neutral canvas designed for portfolio and Behance showcases.
 
 ---
 
@@ -49,7 +49,7 @@ All five screens are built faithful to the exhibition wireframes (`docs/wirefram
    - Accessible ARIA tabs: **Active (n)** and **History (n)** with arrow-key navigation.
    - Ready parcel card with urgent chip (`Urgent: lab gear`), horizontal 3-step intake stepper, and location block (`Gate 1 | Shelf Bin B-3`).
    - "Other updates" section routing directly to pending unboxing or location mismatch states.
-   - Demo reset footer.
+   - Clean brand footer.
 
 2. **Parcel OTP (`/parcel/:id/otp`)**
    - High-contrast location card and intake timestamp.
@@ -82,28 +82,23 @@ All five screens are built faithful to the exhibition wireframes (`docs/wirefram
 | Parameter | Purpose | Behavior |
 |-----------|---------|----------|
 | `?kiosk=1` | **Exhibition Kiosk Mode** | Automatically resets the prototype after **180 seconds** of user inactivity (pointer, touch, key, or scroll). |
-| `?presenter=0` | **Presenter Clean View** | Hides the Facilitator Control Panel on desktop viewports for clean demonstration. |
 | `?shelveDelay=<sec>` | **Unboxing Timer Override** | Customizes the simulated unboxing delay for the pending Flipkart parcel (default: 10 seconds). |
-
-### Facilitator Controls (Desktop ≥ 900px)
-- **Reset demo**: Instantly reloads initial seed state.
-- **Shelve Flipkart parcel now**: Forces immediate shelving of `FKT-55021` to Gate 1, Bin A-2.
-- **Expire current OTP now**: Triggers code expiration to showcase the renewal workflow.
-- **Simulate network failure**: Injects an error into the confirmation sheet (*"Couldn't confirm the handover. Check your connection and try again."*).
-- **State Readout**: Live real-time inspection of all parcel entities.
 
 ---
 
 ## 🎨 Design System & Anti-Slop Discipline
 
-- **Strict 6-Value Palette**:
-  - `--white`: `#FFFFFF` (screen background)
-  - `--ink`: `#111827` (text, primary buttons, 2px borders, alert banners)
-  - `--ink-2`: `#374151` (pressed state)
-  - `--muted`: `#4B5563` (secondary text, ≥6.6:1 contrast for sunlight glare)
-  - `--outline`: `#6B7280` (1px control borders, ≥3:1 contrast)
-  - `--surface`: `#F3F4F6` (info blocks, chips, unselected tabs)
-- **Anti-Slop Rules**: Zero gradients, zero box-shadows, zero glassmorphism, zero stock avatars/emojis, zero decorative animations. Style is quiet and restrained.
+- **Curated Neutral Palette (Engineered for Behance & Sunlight Readability)**:
+  - `--bg-app`: `#E7E3DA` (App background — visible warm neutral stone/concrete that cleanly contrasts against Behance's pure white `#FFFFFF` canvas)
+  - `--card-bg`: `#F7F5F0` (Card & interactive surface background — clean warm off-white)
+  - `--surface`: `#D8D2C5` (Secondary surface: unselected tabs, info blocks, recessed rows)
+  - `--white`: `#FFFFFF` (Crisp contrast for text & icons on dark buttons and badges)
+  - `--ink`: `#181716` (Primary text, primary buttons, 2px borders, alert banners)
+  - `--ink-2`: `#2C2A28` (Pressed state for ink surfaces)
+  - `--muted`: `#59554E` (Secondary text, ≥5.5:1 on app bg, ≥6.5:1 on cards)
+  - `--outline`: `#8C867B` (1px control borders, ≥3:1 contrast)
+  - `--page`: `#CDC6B8` (Desktop backdrop behind the device frame)
+- **Anti-Slop Rules**: Zero generic SaaS gradients, zero pastel fluff, zero stock avatars/emojis. Style is utilitarian, physical, and restrained — inspired by Dieter Rams and Swiss railway signage.
 - **Typography**: Self-hosted `@fontsource/ibm-plex-sans` for interface copy, `@fontsource/ibm-plex-mono` strictly for fixed-width data (OTPs, parcel references, timestamps).
 - **Accessibility**: Full WCAG AA compliance, semantic HTML, ARIA tablist patterns, focus traps in modals, `prefers-reduced-motion` support.
 
