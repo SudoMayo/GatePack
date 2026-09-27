@@ -1,17 +1,115 @@
-# GatePack
+# GatePack 📦
 
-A frontend-only, mobile-first, clickable prototype of **GatePack** built for the live university exhibition (Course STET301, Human-Computer Interaction, Vijaybhoomi University).
+> **Exhibition Prototype** | Course STET301: Human-Computer Interaction | Vijaybhoomi University
 
-## Context & Problem
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://sudomayo.github.io/GatePack/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 
-Couriers (Amazon, Flipkart, Myntra) drop parcels at two campus gates: **Gate 1** (Main Gate / Security Post 1) and **Gate 2** (Hostel Quad / Security Post 2). Hostels are up to a 15-minute uphill walk away in ~34 °C heat. Courier apps mark items "Delivered" while boxes remain sealed in bulk sacks, causing students to walk down prematurely, go to the wrong gate, and search through unsorted boxes.
+A frontend-only, mobile-first, clickable prototype of **GatePack** built for a live university exhibition. Designed to be completely self-explanatory, glare-resistant, and impossible to dead-end.
 
-GatePack fixes three core usability flaws:
-1. **H5 Error Prevention**: OTP is locked until the parcel is physically shelved ("Do not walk down" banner, live unboxing progress, "Notify me when shelved").
-2. **H1 System Status / H6 Recognition over Recall**: Location mismatch screen alerts students ("At Gate 2, not Gate 1") with walking distance and gate-bound OTPs.
-3. **H3 User Control & Freedom**: Reversible navigation on every screen ("Back", "Return to dashboard"), confirmation sheets before handover completion, and OTP state preservation across screen departures.
+---
 
-## Getting Started
+## 🌐 Live Showcase
+
+Experience the live interactive prototype on your phone, tablet, or desktop:
+
+👉 **[https://sudomayo.github.io/GatePack/](https://sudomayo.github.io/GatePack/)**
+
+- **Mobile Viewports (≤500px)**: Fills `100dvh` natively without phone borders or fake status bars. Optimized for outdoor glare and touchscreen touch targets (≥44px).
+- **Desktop Viewports (>500px)**: Displays an iPhone 15/16-proportioned frame (393×852 px) with a realistic status bar and an interactive Facilitator Control Panel (≥900px).
+
+---
+
+## 📍 Problem & HCI Context
+
+**Setting**: Vijaybhoomi University. Couriers (Amazon, Flipkart, Myntra) drop parcels at two campus gates:
+- **Gate 1**: Main Gate / Security Post 1
+- **Gate 2**: Hostel Quad / Security Post 2
+
+Hostels are up to a 15-minute uphill walk away in ~34 °C heat. Commercial courier apps mark packages "Delivered" while boxes are still sealed in unsorted bulk bags. Students walk down prematurely, arrive at the wrong gate, and search through 80+ unsorted boxes.
+
+### Core Usability Flaws Fixed (Exhibition Story)
+
+| # | Heuristic | Flaw in Early Sketch | Fix Visible in Prototype |
+|---|-----------|----------------------|--------------------------|
+| **1** | **H5: Error Prevention** | OTP shown the moment courier said "Delivered", prompting pointless walks | **Package Pending Screen**: OTP **locked**, prominent "Do not walk down" banner, 3-step live unboxing stepper, wait estimate, and "Notify me when shelved". |
+| **2** | **H1: System Status** &<br>**H6: Recognition over Recall** | Students defaulted to Gate 1 out of habit | **Location Mismatch Screen**: Inverted alert banner ("At Gate 2, not Gate 1"), bold actual location card, walking distance (650 m, ~8 min), and gate-bound OTP. |
+| **3** | **H3: User Control & Freedom** | OTP redemption was a one-way tunnel | **Reversible Navigation**: "Back" control on every child screen, "Return to dashboard" links, bottom sheet confirmation before handover, and OTP state preserved across navigation. |
+
+---
+
+## 📱 Five Core Screens
+
+All five screens are built faithful to the exhibition wireframes (`docs/wireframes/`):
+
+1. **Dashboard (`/`)**
+   - Header with wordmark and student chip (`ID: 248`).
+   - Accessible ARIA tabs: **Active (n)** and **History (n)** with arrow-key navigation.
+   - Ready parcel card with urgent chip (`Urgent: lab gear`), horizontal 3-step intake stepper, and location block (`Gate 1 | Shelf Bin B-3`).
+   - "Other updates" section routing directly to pending unboxing or location mismatch states.
+   - Demo reset footer.
+
+2. **Parcel OTP (`/parcel/:id/otp`)**
+   - High-contrast location card and intake timestamp.
+   - **Hero `OtpBoxes`**: 56×68 px boxes with 2 px ink border, centered, bold mono digits.
+   - Real generated vector QR code (`qrcode.react`) with a live 15-minute countdown timer.
+   - Reassurance notice: *"Your OTP stays valid if you leave this screen."*
+   - Sticky footer with confirmation sheet trigger.
+
+3. **Handover Complete (`/parcel/:id/done`)**
+   - 72 px ink check badge with auto-focused heading for screen readers.
+   - Monospace Transaction Record receipt (Retrieved time, OTP reference, Security Post).
+   - Atomic navigation (`replace`) preventing stale backward navigation.
+
+4. **Package Pending (`/parcel/:id/pending`)**
+   - Full-bleed warning banner: *"Do not walk down. Unboxing in progress."*
+   - Vertical stepper (`<ol>`) displaying Dropped (Done), Security unboxing (In progress), and Shelved (Pending).
+   - Dashed locked OTP box (*"Generates once shelved"*).
+   - Notification toggle simulating security shelving (updates in-place or via toast).
+
+5. **Location Mismatch (`/parcel/:id/mismatch`)**
+   - Inverted ink banner: *"At Gate 2, not Gate 1"*.
+   - Destination card with Gate 2 indicator and Bin chip.
+   - Walk distance strip (`Walk: 650 m (~8 min across quad)`).
+   - Gate-bound OTP with clear guard restriction notice.
+
+---
+
+## 🎮 Interactive Features & URL Parameters
+
+| Parameter | Purpose | Behavior |
+|-----------|---------|----------|
+| `?kiosk=1` | **Exhibition Kiosk Mode** | Automatically resets the prototype after **180 seconds** of user inactivity (pointer, touch, key, or scroll). |
+| `?presenter=0` | **Presenter Clean View** | Hides the Facilitator Control Panel on desktop viewports for clean demonstration. |
+| `?shelveDelay=<sec>` | **Unboxing Timer Override** | Customizes the simulated unboxing delay for the pending Flipkart parcel (default: 10 seconds). |
+
+### Facilitator Controls (Desktop ≥ 900px)
+- **Reset demo**: Instantly reloads initial seed state.
+- **Shelve Flipkart parcel now**: Forces immediate shelving of `FKT-55021` to Gate 1, Bin A-2.
+- **Expire current OTP now**: Triggers code expiration to showcase the renewal workflow.
+- **Simulate network failure**: Injects an error into the confirmation sheet (*"Couldn't confirm the handover. Check your connection and try again."*).
+- **State Readout**: Live real-time inspection of all parcel entities.
+
+---
+
+## 🎨 Design System & Anti-Slop Discipline
+
+- **Strict 6-Value Palette**:
+  - `--white`: `#FFFFFF` (screen background)
+  - `--ink`: `#111827` (text, primary buttons, 2px borders, alert banners)
+  - `--ink-2`: `#374151` (pressed state)
+  - `--muted`: `#4B5563` (secondary text, ≥6.6:1 contrast for sunlight glare)
+  - `--outline`: `#6B7280` (1px control borders, ≥3:1 contrast)
+  - `--surface`: `#F3F4F6` (info blocks, chips, unselected tabs)
+- **Anti-Slop Rules**: Zero gradients, zero box-shadows, zero glassmorphism, zero stock avatars/emojis, zero decorative animations. Style is quiet and restrained.
+- **Typography**: Self-hosted `@fontsource/ibm-plex-sans` for interface copy, `@fontsource/ibm-plex-mono` strictly for fixed-width data (OTPs, parcel references, timestamps).
+- **Accessibility**: Full WCAG AA compliance, semantic HTML, ARIA tablist patterns, focus traps in modals, `prefers-reduced-motion` support.
+
+---
+
+## 🛠️ Local Development & Build
 
 ### Prerequisites
 - Node.js ≥ 20
@@ -19,46 +117,67 @@ GatePack fixes three core usability flaws:
 
 ### Commands
 ```bash
+# Navigate to project directory
+cd gatepack
+
 # Install dependencies
 npm install
 
-# Start local development server
+# Start development server
 npm run dev
 
-# Run type checks
+# Run TypeScript type check
 npm run typecheck
 
-# Run linter
+# Run ESLint validation
 npm run lint
 
-# Build for production
+# Build production bundle
 npm run build
 
 # Preview production build locally
 npm run preview
 ```
 
-## URL Parameters
+---
 
-- `?kiosk=1`: Kiosk mode for exhibition displays. Automatically resets the demo after 180 seconds of user inactivity (pointer, touch, or keyboard).
-- `?presenter=0`: Hides the facilitator controls panel on desktop viewports (≥900px).
-- `?shelveDelay=<seconds>`: Customizes the simulated security unboxing timer for the pending parcel (default: 10 seconds).
+## 🚢 Continuous Deployment
 
-## Facilitator Controls (Desktop ≥ 900px)
+GatePack uses automated CI/CD via GitHub Actions ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)):
+- Runs on every push to `main`.
+- Automatically executes `typecheck`, `lint`, and `build`.
+- Deploys static bundle directly to GitHub Pages.
 
-On wider viewports, a wireframe-styled facilitator panel appears to the right of the phone frame with controls for interactive demonstrations:
-- **Reset demo**: Instantly restores seed state.
-- **Shelve Flipkart parcel now**: Forces unboxing completion and moves parcel to Gate 1, Bin A-2.
-- **Expire current OTP now**: Simulates OTP expiration to demonstrate renewal workflows.
-- **Simulate network failure**: Toggles simulated network failure when tapping "Yes, complete handover".
-- **State readout**: Real-time read-only status of all parcels.
+---
 
-## Deployment to GitHub Pages
+## 📁 Repository Structure
 
-The project uses `HashRouter` and `base: './'` in `vite.config.ts`, making it 100% static and zero-config for GitHub Pages:
+```
+GatePack/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # GitHub Actions CI/CD deployment
+├── docs/
+│   └── wireframes/             # Original exhibition wireframe PNGs (01 - 05)
+├── gatepack/
+│   ├── public/
+│   │   └── favicon.svg         # Minimalist brand package icon
+│   ├── src/
+│   │   ├── components/         # Modular UI components (PhoneFrame, OtpBoxes, ConfirmSheet, etc.)
+│   │   ├── hooks/              # Custom hooks (useKiosk)
+│   │   ├── screens/            # The 5 core screens (Dashboard, ParcelOtp, HandoverComplete, etc.)
+│   │   ├── state/              # Context & useReducer state machine
+│   │   ├── styles/             # Design tokens and vanilla CSS
+│   │   ├── App.tsx             # Root routing with ParcelGuard
+│   │   ├── data.ts             # Initial seed data
+│   │   ├── types.ts            # TypeScript interfaces
+│   │   └── main.tsx            # Entry point
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── vite.config.ts
+└── README.md
+```
 
-1. Build the production bundle:
-   ```bash
-   npm run build
-   ```
-2. Deploy the generated `dist/` directory to GitHub Pages (or use the provided GitHub Actions workflow at `.github/workflows/deploy.yml`).
+---
+
+*Designed and engineered for university exhibition visitors. Zero dead-ends, glare-optimized, and fully interactive.*
