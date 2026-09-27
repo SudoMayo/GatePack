@@ -23,7 +23,6 @@ export type AppAction =
   | { type: 'TOGGLE_NOTIFY'; parcelId: string }
   | { type: 'SHELVE'; parcelId: string }
   | { type: 'SET_TAB'; tab: 'active' | 'history' }
-  | { type: 'EXPIRE_OTP'; parcelId: string }
   | { type: 'SET_TOAST'; toast: ToastData }
   | { type: 'DISMISS_TOAST' }
   | { type: 'SET_SIMULATE_FAILURE'; enabled: boolean }
@@ -129,15 +128,6 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     case 'SET_TAB':
       return { ...state, activeTab: action.tab };
 
-    case 'EXPIRE_OTP':
-      return {
-        ...state,
-        parcels: state.parcels.map((p) =>
-          p.id === action.parcelId
-            ? { ...p, otpExpiresAt: Date.now() - 1 }
-            : p,
-        ),
-      };
 
     case 'SET_TOAST':
       return { ...state, toast: action.toast };
